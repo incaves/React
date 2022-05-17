@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 总结 -->
+    <!-- 1.类中构造器不是必须写的 要对实例进行一些初始化的操作:如添加指定属性时才写 -->
+    <!-- 2.如果B类继承了A类,且B类中写了构造器,那么B类构造器中必须super要调用的 -->
+    <!-- 3.类中定义的方法,都是放在了类的原型对象上,供实例使用 -->
+    <script>
+      // 创建一个Person类
+      class Person {
+        // 构造器不是必须要写的 就算是不写也可以接受到实例传递的值
+        // 构造器方法
+        constructor(name, age) {
+          // 放到函数自身
+          // 构造器的this是? --- 类的实例对象 p1 , p2
+          this.name = name
+          this.age = age
+        }
+        // 一般方法(自己的定义的方法)
+        spack() {
+          // spack放在了那里? 类型的原型对象上
+          // spack给谁用的呢? 供实例使用
+          // spack的this是谁? 调用者 p1,p2
+          // 通过Person实例 调用spack时 spack中的this就是Person实例
+          console.log(`我叫${this.name},我的年龄是${this.age}`)
+        }
+      }
+      // 继承 创建一个Student 继承于Person 构造器可以不写继承于Person
+      class Student extends Person {
+        // 想创建自己的属性,不想继承于Person 想要自己独有的 就需要写构造器
+        constructor(name, age, grade) {
+          // 继承的类 必须写super
+          super(name, age) // 帮忙调用父类的构造器(super必须放在最开始)
+          this.grade = grade
+          this.shool = '清华' // 属于自己本身的类
+        }
+        // 重写从父类继承过来的方法
+        spack() {
+          console.log(`我叫${this.name},我的年龄是${this.age},我读的是${this.grade}`)
+        }
+        study() {
+          console.log('我很努力的学习')
+        }
+      }
+      // 创建一个Person的实例对象
+      const p1 = new Person('Tom', 19)
+      const p2 = new Person('Jerry', 20)
+      // Person的调用
+      console.log(p1)
+      console.log(p2)
+      p1.spack()
+      p2.spack()
+      // Student的调用
+      const s1 = new Student('小张', 21, '大一')
+      console.log(s1)
+      console.log(s1.shool)
+      s1.spack()
+      s1.study()
+    </script>
+  </body>
+</html>

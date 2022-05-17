@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      // 1.创建组件
+      class Wearther extends React.Component {
+        // 需要初始化操作,需要用到构造器
+        constructor(props) {
+          // 能收到什么取决于 new的时候传递的什么 props state context ..
+          super(props)
+          // 必须写的是一个对象
+          // 初始化状态
+          this.state = {
+            isHot: true,
+          }
+          // 去原型对象上找changeWeather所以不会报错
+          // 改变this指向 bind返回的是一个新函数
+          this.changeWeather = this.changeWeather.bind(this)
+        }
+        // this指向组件的实例对象 实例对象上有state所以可以调用到
+        render() {
+          const { isHot } = this.state
+          // 注意事件的必须大写 例如onClick onBlur
+          // 不能写字符串 必须加花括号
+          // 如果写的是 demo() 它会自己调用
+          return <h1 onClick={this.changeWeather}>今天天气很{isHot ? '炎热' : '凉爽'}</h1>
+        }
+        changeWeather() {
+          // changeWeather放在了那里? Wearther 的原型对象上 供组件实例使用
+          // 由于changeWeather是作为onClick的回调 所以不是通过组件实例 是直接调用
+          // 类中的方法默认开启了局部的严格模式,所以 changeWeather中的this为undefined
+          // console.log(this) this默认指向undefined
+          console.log(this)
+        }
+      }
+      // 2.渲染组件到页面
+      ReactDOM.render(<Wearther />, document.getElementById('test'))
+      // function changeWeather() {
+      // 不能在这里写语句 例如  const {ishot} = this.state
+      // 这里的this指向window babel又强行把函数中的this指向了undefined
+      // console.log(this)
+      // alert('按钮3被点击了')
+      // }
+    </script>
+  </body>
+</html>
