@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React</title>
+  </head>
+  <body>
+    <!-- 容器 -->
+    <div id="test"></div>
+    <!-- 要有顺序-->
+    <!-- 引入React核心库 -->
+    <script src="../js/react.development.js"></script>
+    <!-- 引入React-DOM 用于支持React操作DOM -->
+    <script src="../js/react-dom.development.js"></script>
+    <script type="text/javascript">
+      // 1.创建虚拟DOM  h1中有span标签(js)
+      const VDOM = React.createElement(
+        'h1',
+        { id: 'title' },
+        React.createElement('span', {}, 'Hello,React')
+      )
+      // 2.渲染虚拟DOM到页面
+      ReactDOM.render(VDOM, document.getElementById('test'))
+    </script>
+  </body>
+</html>

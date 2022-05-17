@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <!-- 1.给React数组它会自动遍历 不能给对象会保错 -->
+    <!-- 2.表达式使用的是 {} -->
+    <!-- 
+        区分js语句和js表达式 
+        1.表达式:一个表达式会产生一个值,可以放在任何一个需要值的地方(或者有返回值map,function)
+           例如  a  a+b demo(1)(函数表达式) arr.map funcation test(){} 
+        2.语句 | 代码  变量接不到  if(){} for() seitch()
+    -->
+    <script type="text/babel">
+      // 模拟一些数据
+      const data = ['Angular', 'React', 'Vue']
+      // 1.创建虚拟DOM
+      const VDOM = (
+        <div>
+          <h1>登高</h1>
+          <ul>
+            {data.map((item, index) => {
+              // 必须有一个唯一值
+              return <li key={index}>{item}</li>
+            })}
+          </ul>
+        </div>
+      )
+      // 2.渲染虚拟DOM到页面
+      ReactDOM.render(VDOM, document.getElementById('test'))
+    </script>
+  </body>
+</html>
